@@ -1,3 +1,5 @@
+
+
 # Machine Learning Analysis Report
 
 ## Purpose of Analysis
@@ -53,13 +55,30 @@ A logistic regression model was trained using `LogisticRegression(random_state=1
   - Recall: [Score]
   - F1-score: [Score]
 
+## Model Evaluation: Precision and Recall for Class 1 (High-Risk Loans)
+While the model performs well overall, it exhibits some limitations, particularly with regard to predicting **class 1** (high-risk loans). The recall and precision for class 1 are lower than expected, indicating that the model struggles to accurately predict high-risk loans. This is an important observation, especially considering the consequences of missing high-risk loans, which could potentially lead to financial losses for lenders.
+
+#### Why the Low Recall and Precision for Class 1?
+The low **recall** for class 1 suggests that the model fails to identify a significant number of high-risk loans, mistakenly classifying them as healthy loans. This can occur due to the imbalance in the dataset, where healthy loans (class 0) are more abundant than high-risk loans (class 1), leading to a bias in predictions.
+
+The low **precision** for class 1 means that when the model predicts a loan as high-risk, it is often wrong, misclassifying healthy loans as high-risk. This increases the number of false positives, which can be costly for lenders if they decide to take actions based on these incorrect predictions.
+
+#### Steps to Improve the Model
+To address these limitations and improve the prediction of high-risk loans, consider the following strategies:
+1. **Resampling Techniques:** Implement oversampling methods (e.g., SMOTE) to increase the proportion of high-risk loans in the dataset, or undersample the healthy loans to balance the classes.
+2. **Class Weights Adjustment:** Modify the class weights in the logistic regression model to give more importance to class 1 during training, encouraging the model to focus more on identifying high-risk loans.
+3. **Feature Engineering:** Explore adding additional features that could help distinguish high-risk loans more clearly from healthy loans.
+
 ## Summary and Recommendation
 Based on the evaluation:
-- The logistic regression model showed an overall good accuracy.
-- Precision and recall scores indicate how well the model distinguishes between healthy and high-risk loans.
-- If predicting high-risk loans (`1`) accurately is more critical than predicting healthy loans (`0`), recall for `1` should be prioritized.
+- The logistic regression model achieved a decent overall accuracy.
+- However, the precision and recall for class 1 (high-risk loans) are lower than desirable, indicating the model struggles with this class.
+- If predicting high-risk loans accurately is more important, prioritize improving recall for class 1.
 
 ### Recommendation:
-- If the goal is to minimize the number of high-risk loans incorrectly classified as healthy, improving recall for `1` is necessary.
-- If misclassifying healthy loans as high-risk is a major concern, precision for `0` should be improved.
-- Trying different machine learning models such as Decision Trees or Random Forest.
+- To reduce the number of high-risk loans misclassified as healthy, improving **recall** for class 1 should be prioritized.
+- If misclassifying healthy loans as high-risk is a concern, focus on improving **precision** for class 1.
+- Additionally, experimenting with different models such as **Decision Trees** or **Random Forest** may help improve classification for the minority class.
+
+---
+
